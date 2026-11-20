@@ -22,9 +22,19 @@ void Acciones(int opt) {
             enlistar(&l, &p);
             break;
         case 2:
-            showLista(&l);
+            printf("\nBienvenido al desregistro de usuarios\n");
+            int i;
+            printf("Ingrese el ID : ");
+            scanf(" %d", &i);
+            desenlistar(&l, i);
             break;
         case 3:
+            showLista(&l);
+            break;
+        case 4:
+            OrdB(&l, 1);
+            break;
+        case 5:
             printf("Saliendo del programa\n");
             break;
         default:
@@ -39,6 +49,6 @@ int main() {
     do {
         opt = Menu();
         Acciones(opt);
-    }while (opt != 3);
+    }while (opt != 5);
     return 0;
 }
