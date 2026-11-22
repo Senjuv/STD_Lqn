@@ -35,6 +35,17 @@ void Acciones(int opt) {
             OrdB(&l, 1);
             break;
         case 5:
+            printf("---- Busqueda de participantes ----\n");
+            printf("Ingrese el ID: ");
+            int id;
+            scanf(" %d", &id);
+            if (listaVacia(&l)) {
+                printf("la lista se encuentra vacia\n");
+            }else {
+                SecuencialL(&l, id, 0);
+            }
+            break;
+        case 6:
             printf("Saliendo del programa\n");
             break;
         default:
@@ -49,6 +60,6 @@ int main() {
     do {
         opt = Menu();
         Acciones(opt);
-    }while (opt != 5);
+    }while (opt != 6);
     return 0;
 }

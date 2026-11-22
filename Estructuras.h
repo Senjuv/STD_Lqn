@@ -25,4 +25,14 @@ typedef struct Lista {
     int contador;
 } Lista;
 
+typedef struct Nodo {
+    int id;
+    struct Nodo *sig;
+}Nodo;
+typedef struct Cola {
+    struct Nodo *frente;
+    struct Nodo *final;
+    struct Cola *sig;
+} Cola;
+
 #endif

@@ -12,5 +12,4 @@ int listaVacia(Lista *l);
 
 void desenlistar(Lista *l, int id);
 
-void OrdB(Lista *l, int op);
 #endif

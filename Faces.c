@@ -5,7 +5,7 @@
 
 void showLista(Lista *l) {
     if (listaVacia(l)) {
-        printf("La lista se encuentra vacia w\n");
+        printf("La lista se encuentra vacia.\n");
     }
     printf("---- Participantes registrados -----\n");
     Participante *nvo = l->inicio;
