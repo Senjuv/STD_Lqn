@@ -46,6 +46,10 @@ void desenlistar(Lista *l, int id) {
     if (listaVacia(l)) {
         printf("La lista esta vacia\n");
     }
+    if (SecuencialL(l, id,1)) {
+        printf("No existe ese participante\n");
+        return;
+    }
     Participante *Anterior = NULL, *Siguiente = NULL, *tmp = l->inicio;
     while (tmp != NULL && tmp->ID != id) {
         Anterior = tmp;

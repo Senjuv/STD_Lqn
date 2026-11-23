@@ -3,8 +3,10 @@
 #include "Estructuras.h"
 #include "Faces.h"
 #include "Listas.h"
+#include "Colas.h"
 
 Lista l;
+Cola c;
 
 void Acciones(int opt) {
     switch (opt) {
@@ -46,6 +48,25 @@ void Acciones(int opt) {
             }
             break;
         case 6:
+            printf("---- Ingrese el id del participante ----\n");
+            int num;
+            scanf(" %d", &num);
+            enqueue(&l, &c, num);
+            break;
+        case 7:
+            printf("---- Mostrar la cola de participantes ----\n");
+            int j;
+            printf("[1] Para ver el siguiente turno\n");
+            printf("[2] Para ver todos los participantes\n");
+            printf("[3] Para ver el total de participantes\n");
+            printf("Seleccione una opcion: ");
+            scanf(" %d", &j);
+            MostarCola(&c, j);
+            break;
+        case 8:
+            dequeue(&l, &c);
+            break;
+        case 9:
             printf("Saliendo del programa\n");
             break;
         default:
@@ -56,10 +77,11 @@ void Acciones(int opt) {
 
 int main() {
     inicializarLista(&l);
+    incializarCola(&c);
     int opt;
     do {
         opt = Menu();
         Acciones(opt);
-    }while (opt != 6);
+    }while (opt != 9);
     return 0;
 }

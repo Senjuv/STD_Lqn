@@ -11,4 +11,8 @@ int idUnique(Lista *l, int id);
 void OrdB(Lista *l, int op);
 
 int SecuencialL(Lista *l, int id, int f);
+
+Participante **BusquedaPJ(Lista *l, int id, int f);
+
+void MostarCola(Cola *c, int i);
 #endif

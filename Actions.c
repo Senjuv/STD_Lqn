@@ -2,6 +2,8 @@
 #include "Estructuras.h"
 #include "Faces.h"
 #include <string.h>
+#include <stdlib.h>
+#include "Colas.h"
 
 int Menu() {
     printf("---- Bienvenido al ArcadeChallenge ---- \n\n");
@@ -11,7 +13,10 @@ int Menu() {
     printf("[3] Mostrar todos los usuarios\n");
     printf("[4] Ordenar participante por ID\n");
     printf("[5] Buscar participante\n");
-    printf("[4] Salir del programa\n");
+    printf("[6] Solicitar turno para jugar\n");
+    printf("[7] Cola de participantes\n");
+    printf("[8] Pasar a jugar al siguiente participante\n");
+    printf("[9] Salir del programa\n");
     printf("Seleccione una de las opciones: ");
     scanf(" %d", &i);
     return i;
@@ -80,22 +85,21 @@ int SecuencialL(Lista *l, int id, int f) {
                 printf("Carrera %s\n", nvo->Carrera);
                 printf("Puntuaciones: %d\n", nvo->Puntuacion);
                 printf("Estado: %d\n\n", nvo->Estado);
-                printf("--- [1] Modificar informacion ----\n");
-                printf("--- [2] Salir ---\n");
-                scanf(" %d", &i);
-                switch (i) {
-                    case 1:
-                        tmp = Mod(nvo);
-                        ModificadordeParticipantes(&nvo, tmp);
-                        printf("esto llega despues\n");
-                        break;
-                    case 2:
-                        printf("Regresando al menu principal \n");
-                        break;
-                    default:
-                        printf("Esa opcion no esta disponible.\n");
-                        break;
-                }
+                    printf("--- [1] Modificar informacion ----\n");
+                    printf("--- [2] Salir ---\n");
+                    scanf(" %d", &i);
+                    switch (i) {
+                        case 1:
+                            tmp = Mod(nvo);
+                            ModificadordeParticipantes(&nvo, tmp);
+                            break;
+                        case 2:
+                            printf("Regresando al menu principal \n");
+                            break;
+                        default:
+                            printf("Esa opcion no esta disponible.\n");
+                            break;
+                    }
             }
             return 0;
         }
@@ -161,4 +165,51 @@ void OrdB(Lista *l, int op){
             aux = aux->sig;
         }
     } while (camb);
+}
+
+Participante **BusquedaPJ(Lista *l, int id, int f) {
+    if (SecuencialL(l, id, 1)) {
+        printf("El id no existe.\n");
+        return NULL;
+    }
+    Participante **aux = &l->inicio;
+    while (aux != NULL) {
+        if ((*aux)->ID == id && (*aux)->Estado == 2 && f==0) {
+            return aux;
+        }else if ((*aux)->ID == id && (*aux)->Estado == 2) {
+            printf("El participante ya esta en la cola de espera\n");
+            return NULL;
+        }else if ((*aux)->ID == id && (*aux)->Estado == 1) {
+            return aux;
+        }
+        aux = &((*aux)->sig);
+    }
+}
+
+void MostarCola(Cola *c, int i) {
+    if (colaVacia(c)) {
+        printf("La cola esta vacia.\n");
+        return;
+    }
+    Nodo *nvo = c->frente;
+    switch (i) {
+        case 1:
+            printf("El siguiente participante en jugar es: %d \n",nvo->id);
+            break;
+        case 2:
+            printf("Cola total de participantes\n");
+            while (nvo != NULL) {
+                printf("Participante: %d\n", nvo->id);
+                nvo = nvo->sig;
+            }
+            break;
+        case 3:
+            printf("total de personas en la cola: %d \n", c->contador);
+            break;
+        default:
+            printf("Elija una opcion valida.\n");
+            break;
+    }
+    free(nvo);
+    return;
 }
