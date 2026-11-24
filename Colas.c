@@ -49,10 +49,12 @@
          printf("La lista esta vacia\n");
          return;
      }
+
      if (colaVacia(c)) {
          printf("La cola esta vacia\n");
          return;
      }
+
      Participante **tmp = BusquedaPJ(l,c->frente->id, 0);
      if (tmp == NULL) {
          printf("No existe ningun participante con ese id.\n");

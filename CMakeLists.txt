@@ -13,4 +13,5 @@ add_executable(ProyectoFinal main.c
         Listas.h
         Actions.h
         Faces.h
-        Colas.h)
+        Colas.h
+        Pilas.h)

@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Colas.h"
+#include "Pilas.h"
 
 int Menu() {
     printf("---- Bienvenido al ArcadeChallenge ---- \n\n");
@@ -16,7 +17,8 @@ int Menu() {
     printf("[6] Solicitar turno para jugar\n");
     printf("[7] Cola de participantes\n");
     printf("[8] Pasar a jugar al siguiente participante\n");
-    printf("[9] Salir del programa\n");
+    printf("[9] Terminar el juego\n");
+    printf("[10] Salir del programa\n");
     printf("Seleccione una de las opciones: ");
     scanf(" %d", &i);
     return i;
@@ -174,18 +176,35 @@ Participante **BusquedaPJ(Lista *l, int id, int f) {
     }
     Participante **aux = &l->inicio;
     while (aux != NULL) {
-        if ((*aux)->ID == id && (*aux)->Estado == 2 && f==0) {
+         if ((*aux)->ID != id && (*aux)->Estado == 3) {
+             printf("Ya hay un usuario jugando.\n");
+             return NULL;
+         }else if ((*aux)->ID == id && (*aux)->Estado == 2 && f==0) {
             return aux;
-        }else if ((*aux)->ID == id && (*aux)->Estado == 2) {
+         }else if ((*aux)->ID == id && (*aux)->Estado == 2) {
             printf("El participante ya esta en la cola de espera\n");
             return NULL;
-        }else if ((*aux)->ID == id && (*aux)->Estado == 1) {
+         }else if ((*aux)->ID == id && (*aux)->Estado == 1) {
             return aux;
-        }
+         }
         aux = &((*aux)->sig);
     }
 }
 
+Participante **BuqusquedaFP(Lista *l) {
+    Participante **aux = &l->inicio;
+    if ((*aux) == NULL) {
+        printf("Ocurrio un error\n");
+        return NULL;
+    }
+    while (aux != NULL) {
+        if ((*aux)->Estado == 3) {
+            return aux;
+        }
+        aux = &((*aux)->sig);
+    }
+    return NULL;
+}
 void MostarCola(Cola *c, int i) {
     if (colaVacia(c)) {
         printf("La cola esta vacia.\n");
@@ -210,6 +229,14 @@ void MostarCola(Cola *c, int i) {
             printf("Elija una opcion valida.\n");
             break;
     }
-    free(nvo);
     return;
+}
+
+void finalizarP(Pila *pila, Participante **p) {
+    if((*p) == NULL){
+        printf("El participante esta vacio\n");
+        return;
+    }
+    push(pila, (*p)->ID, (*p)->Puntuacion, (*p)->Estado);
+    (*p)->Estado = 4;
 }

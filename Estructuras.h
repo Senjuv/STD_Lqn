@@ -37,4 +37,15 @@ typedef struct Cola {
     int contador;
 } Cola;
 
+typedef struct Resul {
+    int ID;
+    int Puntuacion;
+    enum estado EstadoAnterior;
+    struct Resul *sig;
+ } Resul;
+
+typedef struct Pila {
+    Resul *tope;
+} Pila;
+
 #endif
