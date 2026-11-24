@@ -3,6 +3,7 @@
 #include "Listas.h"
 #include "Estructuras.h"
 
+//funcion que muestra unicamente la lista de participantes jajja
 void showLista(Lista *l) {
     if (listaVacia(l)) {
         printf("La lista se encuentra vacia.\n");
